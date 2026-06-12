@@ -9,13 +9,22 @@ import { Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 
 const volunteerSchema = z.object({
   fullName: z.string().min(2, "Full name is required"),
-  phoneNumber: z.string().min(10, "Valid phone number is required"),
+
+  phoneNumber: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
+
   email: z.string().email("Valid email address is required"),
+
   location: z.string().min(2, "Location is required"),
+
   skills: z.string().min(2, "Please mention your skills"),
+
   message: z.string().min(10, "Please provide a brief message"),
 });
 
@@ -34,20 +43,47 @@ export function VolunteerSection() {
     resolver: zodResolver(volunteerSchema),
   });
 
-  const onSubmit = async (data: VolunteerFormValues) => {
-    setIsSubmitting(true);
-    // Simulate API call for email delivery
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Form data:", data);
-    setIsSubmitting(false);
+ const onSubmit = async (data: VolunteerFormValues) => {
+  setIsSubmitting(true);
+
+  try {
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_VOLUNTEER_TEMPLATE_ID!,
+      {
+        full_name: data.fullName,
+        email: data.email,
+        phone_number: data.phoneNumber,
+        location: data.location,
+        skills: data.skills,
+        message: data.message,
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    );
+
+    toast.success("Application Submitted Successfully!", {
+      description:
+        "Thank you for volunteering with GERD Trust. Our team will contact you soon.",
+    });
+
     setIsSuccess(true);
+
     reset();
-    
-    // Reset success message after 5 seconds
+
     setTimeout(() => {
       setIsSuccess(false);
     }, 5000);
-  };
+
+  } catch (error) {
+    console.error(error);
+
+    toast.error("Failed to Submit Application!", {
+      description: "Please try again later.",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <section className="py-24 bg-gray-50 border-t border-gray-100" id="volunteer">
@@ -125,7 +161,14 @@ export function VolunteerSection() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-semibold text-slate-700 mb-1 block">Phone Number</label>
-                    <Input {...register("phoneNumber")} placeholder="+91 9876543210" className="bg-gray-50 border-gray-200" />
+                    <Input
+  {...register("phoneNumber")}
+  type="tel"
+  inputMode="numeric"
+  maxLength={10}
+  placeholder="9876543210"
+  className="bg-gray-50 border-gray-200"
+/>
                     {errors.phoneNumber && <span className="text-xs text-red-500 mt-1">{errors.phoneNumber.message}</span>}
                   </div>
                   <div>
