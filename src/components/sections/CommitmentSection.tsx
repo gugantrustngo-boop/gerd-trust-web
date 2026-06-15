@@ -34,7 +34,7 @@ export function CommitmentSection() {
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-brand-primary">Our Commitment</h2>
           <div className="w-20 h-1 bg-brand-accent mx-auto rounded-full mb-6" />
           <p className="text-slate-600 text-lg">
-            We are dedicated to upholding the highest standards of integrity in all our operations. Our core values drive every decision we make.
+            we are committed to building trust through integrity, accountability, and community ownership in all our work across Tamil Nadu.
           </p>
         </div>
 
