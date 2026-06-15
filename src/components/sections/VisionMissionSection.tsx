@@ -29,7 +29,7 @@ export function VisionMissionSection() {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold font-heading text-brand-primary mb-4">Our Vision</h3>
               <p className="text-slate-600 leading-relaxed text-lg">
-                To build empowered rural communities in Ponnamaravathy Block, Pudukkottai District where every child has access to quality education and every family has sustainable livelihood opportunities.
+                To build empowered rural communities in Tamil Nadu, starting from Ponnamaravathy Block, Pudukkottai District where every child has access to quality education and every family has sustainable livelihood opportunities.
               </p>
             </div>
           </motion.div>
@@ -49,7 +49,7 @@ export function VisionMissionSection() {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold font-heading text-white mb-4">Our Mission</h3>
               <p className="text-gray-200 leading-relaxed text-lg">
-                GERD Trust uplifts marginalized rural families by providing quality education, healthcare support, skill development opportunities, environmental awareness, and sustainable livelihood programs.
+                GERD Trust empowers marginalized rural families in Tamil Nadu by providing quality education, healthcare support, skill development, environmental awareness, and sustainable livelihood programs - beginning our work in ponnamaravathy Block, Pudukkottai District.
               </p>
             </div>
           </motion.div>

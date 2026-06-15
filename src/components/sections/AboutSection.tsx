@@ -46,7 +46,7 @@ export function AboutSection() {
             
             <div className="space-y-4 text-slate-600 text-lg leading-relaxed">
               <p>
-                GERD Trust is a Public Charitable Trust working for rural children, women, and marginalized families in Ponnamaravathy Block and surrounding villages of Pudukkottai District. We work without discrimination of caste, religion, or gender.
+                GERD Trust is a Public Charitable Trust working for rural children, women, and marginalized families across Tamil Nadu, beginning with Ponnamaravathy Block and surrounding villages of Pudukkottai District. We work with equality and dignity for all, without discrimination of caste, religion, or gender.
               </p>
               <p>
                 Founded on <span className="font-semibold text-brand-primary">20 November 2025</span>, GERD Trust focuses on empowering rural communities through education, healthcare, skill development, environmental sustainability, and livelihood support.

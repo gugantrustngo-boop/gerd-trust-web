@@ -10,17 +10,60 @@ const categories = ["All", "Education", "Health", "Environment", "Community Acti
 
 // Dummy data prepared for future actual uploads
 const initialImages = [
-  { id: 1, category: "Education", src: "/student.jpeg", alt: "Students in classroom" },
-  { id: 2, category: "Health", src: "/medic.jpeg", alt: "Medical camp" },
-  { id: 3, category: "Environment", src: "/tree.jpeg", alt: "Tree plantation" },
-  { id: 4, category: "Community Activities", src: "/community.jpeg", alt: "Community activity" },
-  { id: 5, category: "Education", src: "/medica.jpeg", alt: "" },
-  { id: 6, category: "Health", src: "/villag.jpeg", alt: "Hygiene awareness" },
+  {
+    id: 1,
+    category: "Education",
+    src: "/student.jpeg",
+    alt: "Students in classroom",
+    caption:
+      "Digital Learning Session | Govt School, Ponnamaravathy | 45 students participated",
+  },
+  {
+    id: 2,
+    category: "Community Activities",
+    src: "/villag.jpeg",
+    alt: "Women Self Help Group Training",
+    caption:
+      "Women Self-Help Group Training | Financial Literacy Program | Pudukkottai District",
+  },
+  {
+    id: 3,
+    category: "Environment",
+    src: "/tree.jpeg",
+    alt: "Sapling Plantation Drive",
+    caption:
+      "Green Future Drive | 200+ saplings planted by youth volunteers",
+  },
+  {
+    id: 4,
+    category: "Health",
+    src: "/community.jpeg",
+    alt: "Sanitation Workers Support",
+    caption:
+      "Clean Village Initiative | Equipping women sanitation workers with safety gear",
+  },
+  {
+    id: 5,
+    category: "Community Activities",
+    src: "/medic.jpeg",
+    alt: "Village Awareness Camp",
+    caption:
+      "Village Awareness Camp | Maternal & Child Health Discussion",
+  },
+  {
+    id: 6,
+    category: "Education",
+    src: "/medica.jpeg",
+    alt: "Educational Support Program",
+    caption:
+      "Educational Support Initiative | Empowering Rural Students Through Learning",
+  },
 ];
 
 export function GallerySection() {
   const [filter, setFilter] = useState("All");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] =
+  useState<(typeof initialImages)[0] | null>(null);
 
   const filteredImages = initialImages.filter(
     (img) => filter === "All" || img.category === filter
@@ -80,7 +123,15 @@ export function GallerySection() {
                 />
                 <div className="absolute inset-0 bg-brand-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
                   <Maximize2 className="text-white mb-2" size={32} />
-                  <span className="text-white font-medium text-sm px-4 text-center">{img.alt}</span>
+                  <div className="px-4 text-center">
+  <h4 className="text-white font-semibold text-base mb-2">
+    {img.alt}
+  </h4>
+
+  <p className="text-white/90 text-sm leading-relaxed">
+    {img.caption}
+  </p>
+</div>
                 </div>
               </motion.div>
             ))}
