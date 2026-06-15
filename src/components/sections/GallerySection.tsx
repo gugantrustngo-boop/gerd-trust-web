@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Maximize2 } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const categories = ["All", "Education", "Health", "Environment", "Community Activities"];
 
@@ -62,12 +60,54 @@ const initialImages = [
 
 export function GallerySection() {
   const [filter, setFilter] = useState("All");
-  const [selectedImage, setSelectedImage] =
+  const [flippedId, setFlippedId] = useState<number | null>(null);+
   useState<(typeof initialImages)[0] | null>(null);
 
   const filteredImages = initialImages.filter(
     (img) => filter === "All" || img.category === filter
-  );
+  );{filteredImages.map((img) => (
+  <motion.div
+    layout
+    key={img.id}
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.9 }}
+    transition={{ duration: 0.3 }}
+    className="h-[300px] cursor-pointer [perspective:1000px]"
+    onClick={() =>
+      setFlippedId(flippedId === img.id ? null : img.id)
+    }
+  >
+    <div
+      className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
+        flippedId === img.id
+          ? "[transform:rotateY(180deg)]"
+          : ""
+      }`}
+    >
+      {/* Front */}
+      <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden">
+        <Image
+          src={img.src}
+          alt={img.alt}
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* Back */}
+      <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-brand-primary text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+        <h3 className="text-lg font-bold mb-3">
+          {img.alt}
+        </h3>
+
+        <p className="text-sm leading-relaxed">
+          {img.caption}
+        </p>
+      </div>
+    </div>
+  </motion.div>
+))}
 
   return (
     <section className="py-24 bg-gray-50 border-t border-gray-100" id="gallery">
@@ -102,71 +142,55 @@ export function GallerySection() {
           layout
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
         >
-          <AnimatePresence>
-            {filteredImages.map((img) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={img.id}
-                className="relative group rounded-2xl overflow-hidden bg-gray-200 aspect-square sm:aspect-auto sm:h-[300px] cursor-pointer"
-                onClick={() => setSelectedImage(img)}
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-brand-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-                  <Maximize2 className="text-white mb-2" size={32} />
-                  <div className="px-4 text-center">
-  <h4 className="text-white font-semibold text-base mb-2">
-    {img.alt}
-  </h4>
+         <AnimatePresence>
+  {filteredImages.map((img) => (
+    <motion.div
+      layout
+      key={img.id}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="h-[300px] cursor-pointer [perspective:1000px]"
+      onClick={() =>
+        setFlippedId(flippedId === img.id ? null : img.id)
+      }
+    >
+      <div
+        className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
+          flippedId === img.id
+            ? "[transform:rotateY(180deg)]"
+            : ""
+        }`}
+      >
+        {/* Front */}
+        <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden">
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            className="object-cover"
+          />
+        </div>
 
-  <p className="text-white/90 text-sm leading-relaxed">
-    {img.caption}
-  </p>
-</div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Lightbox Modal */}
-<Dialog
-  open={!!selectedImage}
-  onOpenChange={() => setSelectedImage(null)}
->
-  <DialogContent className="max-w-5xl bg-black/95 border-none p-0 overflow-hidden">
-    {selectedImage && (
-      <div className="relative w-full h-[85vh]">
-        <Image
-          src={selectedImage.src}
-          alt={selectedImage.alt}
-          fill
-          className="object-contain"
-        />
-
-        {/* Caption Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6">
-          <h3 className="text-white text-xl font-semibold mb-2">
-            {selectedImage.alt}
+        {/* Back */}
+        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-brand-primary text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+          <h3 className="text-lg font-bold mb-3">
+            {img.alt}
           </h3>
 
-          <p className="text-white/90 text-sm md:text-base">
-            {selectedImage.caption}
+          <p className="text-sm leading-relaxed">
+            {img.caption}
           </p>
         </div>
       </div>
-    )}
-  </DialogContent>
-</Dialog>
+    </motion.div>
+  ))}
+</AnimatePresence>
+        </motion.div>
+
+        {/* Lightbox Modal */}
+
       </div>
     </section>
   );
