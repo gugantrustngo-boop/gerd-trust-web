@@ -143,24 +143,23 @@ export function GallerySection() {
   open={!!selectedImage}
   onOpenChange={() => setSelectedImage(null)}
 >
-  <DialogContent className="max-w-5xl bg-transparent border-none shadow-none p-0 flex justify-center">
+  <DialogContent className="max-w-5xl bg-black/95 border-none p-0 overflow-hidden">
     {selectedImage && (
-      <div className="relative w-full">
-        <div className="relative w-full h-[80vh]">
-          <Image
-            src={selectedImage.src}
-            alt={selectedImage.alt}
-            fill
-            className="object-contain"
-          />
-        </div>
+      <div className="relative w-full h-[85vh]">
+        <Image
+          src={selectedImage.src}
+          alt={selectedImage.alt}
+          fill
+          className="object-contain"
+        />
 
-        <div className="mt-4 text-center bg-white rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-brand-primary">
+        {/* Caption Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6">
+          <h3 className="text-white text-xl font-semibold mb-2">
             {selectedImage.alt}
           </h3>
 
-          <p className="text-slate-600 mt-2">
+          <p className="text-white/90 text-sm md:text-base">
             {selectedImage.caption}
           </p>
         </div>
