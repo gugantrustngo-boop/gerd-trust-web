@@ -112,7 +112,7 @@ export function GallerySection() {
                 transition={{ duration: 0.3 }}
                 key={img.id}
                 className="relative group rounded-2xl overflow-hidden bg-gray-200 aspect-square sm:aspect-auto sm:h-[300px] cursor-pointer"
-                onClick={() => setSelectedImage(img.src)}
+                onClick={() => setSelectedImage(img)}
               >
                 <Image
                   src={img.src}
@@ -139,20 +139,35 @@ export function GallerySection() {
         </motion.div>
 
         {/* Lightbox Modal */}
-        <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="max-w-5xl bg-transparent border-none shadow-none p-0 flex justify-center">
-            {selectedImage && (
-              <div className="relative w-full max-h-[90vh] aspect-video">
-                <Image
-                  src={selectedImage}
-                  alt="Gallery Preview"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
+<Dialog
+  open={!!selectedImage}
+  onOpenChange={() => setSelectedImage(null)}
+>
+  <DialogContent className="max-w-5xl bg-transparent border-none shadow-none p-0 flex justify-center">
+    {selectedImage && (
+      <div className="relative w-full">
+        <div className="relative w-full h-[80vh]">
+          <Image
+            src={selectedImage.src}
+            alt={selectedImage.alt}
+            fill
+            className="object-contain"
+          />
+        </div>
+
+        <div className="mt-4 text-center bg-white rounded-lg p-4">
+          <h3 className="text-lg font-semibold text-brand-primary">
+            {selectedImage.alt}
+          </h3>
+
+          <p className="text-slate-600 mt-2">
+            {selectedImage.caption}
+          </p>
+        </div>
+      </div>
+    )}
+  </DialogContent>
+</Dialog>
       </div>
     </section>
   );
