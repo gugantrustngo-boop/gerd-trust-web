@@ -4,36 +4,37 @@ import { motion } from "framer-motion";
 import { FileText, Download, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import Image from "next/image";
 
 const documents = [
   {
     title: "Trust Deed",
     description: "Official Trust Deed document.",
-    url: "/gugan-trust-deed.pdf",
     available: true,
+    images: Array.from(
+      { length: 13 },
+      (_, i) => `/compliance/trust-deed-page-${i + 1}.png`
+    ),
   },
+    {
+      title: "DARPAN Registration",
+      description: "NITI Aayog NGO DARPAN Registration.",
+      available: true,
+      images: ["/compliance/darpan-certificate.jpeg"],
+    },
   {
     title: "Trust Registration Certificate",
     description: "Registration No: 35/2025",
-    url: "#",
-    available: false,
-  },
-  {
-    title: "DARPAN Registration",
-    description: "NITI Aayog NGO DARPAN Registration.",
-    url: "#",
     available: false,
   },
   {
     title: "12A Certificate",
     description: "Income Tax exemption registration.",
-    url: "#",
     available: false,
   },
   {
     title: "80G Certificate",
     description: "Donation tax deduction eligibility.",
-    url: "#",
     available: false,
   },
 ];
@@ -73,29 +74,31 @@ export function ComplianceSection() {
               <div className="mt-auto pt-4 flex items-center gap-3">
                 {doc.available ? (
                   <>
-                    <Dialog>
-                      <DialogTrigger 
-                        render={
-                          <Button variant="outline" className="flex-1 border-gray-200 hover:border-brand-primary hover:text-brand-primary transition-colors">
-                            <Eye className="w-4 h-4 mr-2" /> View
-                          </Button>
-                        }
-                      />
-                      <DialogContent className="max-w-4xl h-[80vh] flex flex-col">
-                        <DialogHeader>
-                          <DialogTitle>{doc.title}</DialogTitle>
-                        </DialogHeader>
-                        <div className="flex-1 w-full mt-4 bg-gray-100 rounded-lg overflow-hidden">
-                          <iframe src={doc.url} className="w-full h-full border-none" title={doc.title} />
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                    
-                    <a href={doc.url} download className="flex-1">
-                      <Button className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white">
-                        <Download className="w-4 h-4 mr-2" /> Download
-                      </Button>
-                    </a>
+                   <Dialog>
+  <DialogTrigger className="w-full border border-gray-200 rounded-md h-10 flex items-center justify-center gap-2 hover:border-brand-primary hover:text-brand-primary transition-colors">
+    <Eye className="w-4 h-4" />
+    View Document
+  </DialogTrigger>
+
+  <DialogContent className="max-w-5xl h-[90vh]">
+    <DialogHeader>
+      <DialogTitle>{doc.title}</DialogTitle>
+    </DialogHeader>
+
+    <div className="mt-4 h-[75vh] overflow-y-auto space-y-4 pr-2">
+      {doc.images?.map((image, index) => (
+        <Image
+          key={index}
+          src={image}
+          alt={`${doc.title} ${index + 1}`}
+          width={1200}
+          height={1600}
+          className="w-full rounded-lg border border-gray-200"
+        />
+      ))}
+    </div>
+  </DialogContent>
+</Dialog>
                   </>
                 ) : (
                   <div className="w-full py-2 px-4 bg-gray-50 rounded-md border border-dashed border-gray-200 text-center text-sm text-slate-500 font-medium">

@@ -186,6 +186,7 @@ export function GallerySection() {
       </div>
     </motion.div>
   ))}
+  
 </AnimatePresence>
         </motion.div>
 
