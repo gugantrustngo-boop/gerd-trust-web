@@ -25,7 +25,8 @@ const documents = [
   {
     title: "Trust Registration Certificate",
     description: "Registration No: 35/2025",
-    available: false,
+    available: true,
+    images: ["/compliance/regist.jpeg"],
   },
   {
     title: "12A Certificate",
@@ -98,7 +99,7 @@ export function ComplianceSection() {
       ))}
     </div>
   </DialogContent>
-</Dialog>
+</Dialog> 
                   </>
                 ) : (
                   <div className="w-full py-2 px-4 bg-gray-50 rounded-md border border-dashed border-gray-200 text-center text-sm text-slate-500 font-medium">
