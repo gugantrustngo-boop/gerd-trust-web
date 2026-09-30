@@ -56,6 +56,14 @@ const initialImages = [
     caption:
       "Educational Support Initiative | Empowering Rural Students Through Learning",
   },
+  {
+    id: 7,
+    category: "Health",
+    src: "/drugs.jpeg",
+    alt: "Community Health Awareness",
+    caption:
+      "Community Health Awareness | Educating Villagers on Safe Medication Practices",
+  },
 ];
 
 export function GallerySection() {

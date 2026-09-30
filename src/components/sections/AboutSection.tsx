@@ -17,7 +17,7 @@ export function AboutSection() {
           >
             <div className="relative h-[520px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/logo1.png"
+                src="/owner.jpeg"
                 alt="About GERD Trust"
                 fill
                 className="object-contain p-6"
